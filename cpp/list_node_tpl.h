@@ -6,6 +6,7 @@
 //    Copyright (c) 2016, NONE, All rights reserved. 
 // =====================================================
 #include <sstream>
+#include <vector>
 
 template<class T>
 struct ListNodeTpl {
@@ -39,6 +40,21 @@ ListNodeTpl<int>* MakeList(int length) {
             p = tmp;
         } else {
             p->next = tmp;
+            p = p->next;
+        }
+    }
+    return head;
+}
+
+ListNodeTpl<int>* MakeList(std::vector<int> &v) {
+    ListNodeTpl<int> *head = NULL;
+    ListNodeTpl<int> *p = NULL;
+    for (size_t i = 0; i < v.size(); ++i) {
+        if (i == 0) {
+            head = new ListNodeTpl<int>(v[i]);
+            p = head;
+        } else {
+            p->next = new ListNodeTpl<int>(v[i]);
             p = p->next;
         }
     }
