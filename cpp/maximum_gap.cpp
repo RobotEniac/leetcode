@@ -21,6 +21,9 @@ int maximumGap(vector<int>& nums) {
         min = (min <= nums[i]) ? min : nums[i];
         max = (max >= nums[i]) ? max : nums[i];
     }
+    if (max == min) {
+        return 0;
+    }
     int len = (max - min) / nums.size() + 1;
     struct Bucket {
         int low;
@@ -42,19 +45,21 @@ int maximumGap(vector<int>& nums) {
         }
     }
     int max_gap = INT_MIN;
+    int prev = 0;
     for (int i = 1; i < bkts.size(); ++i) {
         if (bkts[i].low == -1 && bkts[i].high == -1) {
             continue;
         }
-        if (bkts[i].low - bkts[i - 1].high > max_gap) {
-            max_gap = bkts[i].low - bkts[i - 1].high;
+        if (bkts[i].low - bkts[prev].high > max_gap) {
+            max_gap = bkts[i].low - bkts[prev].high;
         }
+        prev = i;
     }
     return max_gap;
 }
 
 int main(int argc, char *argv[]) {
-    vector<int> a = {3,6,9,1};
+    vector<int> a = {1,1,1,1};
     std::cout << a << endl;
     cout << maximumGap(a) << endl;
 }

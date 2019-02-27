@@ -6,6 +6,8 @@
 //    Copyright (c) 2015, NONE, All rights reserved. 
 // =====================================================
 
+#ifndef LEETCODE_CPP_UTIL_H
+#define LEETCODE_CPP_UTIL_H
 #pragma once
 #include <list>
 #include <map>
@@ -190,3 +192,4 @@ std::basic_ostream<TChar, TCharTraits>& operator<<(std::basic_ostream<TChar, TCh
 		stream << delimiters<std::pair<T1, T2>, TChar>::values.postfix;
 	return stream;    
 }
+#endif // LEETCODE_CPP_UTIL_H
