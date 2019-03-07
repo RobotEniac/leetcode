@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# https://leetcode.com/problems/bitwise-and-of-numbers-range/
+url=$1
+name=`echo $url | awk -F'\/' '{print $5}' | sed 's/\-/_/g'`.cpp
+echo $name
+
+year=`date +"%Y"`
+time=`date +"%Y/%m/%d %H:%M:%S"`
+template_name="template"
+
+echo "// Copyright (c) 2019, eniac" > $name
+echo "// All rights reserved." >> $name
+echo "//" >> $name
+echo "// Author: eniac <roboteniac@163.com>" >> $name
+echo "// Created: $time" >> $name
+echo "// Description: $url" >> $name
+echo >> $name
+
+cat $template_name >> $name

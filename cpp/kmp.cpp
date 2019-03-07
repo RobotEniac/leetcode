@@ -8,16 +8,14 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "util.h"
 
 using namespace std;
 
 void cal(const string& p, vector<int>* f) {
-    f->clear();
-    for (size_t i = 0; i < p.size(); ++i) {
-        f->push_back(-1);
-    }
+    f->assign(p.size(), -1);
     vector<int>& fun = *f;
     for (size_t i = 1; i < p.size(); ++i) {
         int t = fun[i-1];
