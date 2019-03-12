@@ -12,8 +12,13 @@ template<class T>
 struct ListNodeTpl {
     T val;
     ListNodeTpl* next;
+    ListNodeTpl() : val(0), next(NULL) {}
     ListNodeTpl(T x) : val(x), next(NULL) {}
+    ~ListNodeTpl() {
+    }
 };
+
+typedef ListNodeTpl<int> ListNode;
 
 template<class T>
 std::ostream& operator<<(std::ostream& out, const ListNodeTpl<T>* list) {
@@ -30,34 +35,30 @@ std::ostream& operator<<(std::ostream& out, const ListNodeTpl<T>* list) {
     return out;
 }
 
-ListNodeTpl<int>* MakeList(int length) {
-    ListNodeTpl<int> *head = NULL;
-    ListNodeTpl<int> *p = NULL;
+ListNodeTpl<int>* MakeList(int length, bool random = false) {
+    ListNodeTpl<int> head;
+    ListNodeTpl<int> *p = &head;
     for (int i = 1; i <= length; ++i) {
-        ListNodeTpl<int> *tmp = new ListNodeTpl<int>(i);
-        if ( i == 1) {
-            head = tmp;
-            p = tmp;
+        ListNodeTpl<int> *tmp;
+        if (random) {
+            tmp = new ListNodeTpl<int>(rand() % 10);
         } else {
-            p->next = tmp;
-            p = p->next;
+            tmp = new ListNodeTpl<int>(i);
         }
+        p->next = tmp;
+        p = p->next;
     }
-    return head;
+    return head.next;
 }
 
-ListNodeTpl<int>* MakeList(std::vector<int> &v) {
-    ListNodeTpl<int> *head = NULL;
-    ListNodeTpl<int> *p = NULL;
+template<typename T>
+ListNodeTpl<T>* MakeList(std::vector<T> &v) {
+    ListNodeTpl<T> head;
+    ListNodeTpl<T> *p = &head;
     for (size_t i = 0; i < v.size(); ++i) {
-        if (i == 0) {
-            head = new ListNodeTpl<int>(v[i]);
-            p = head;
-        } else {
-            p->next = new ListNodeTpl<int>(v[i]);
-            p = p->next;
-        }
+        p->next = new ListNodeTpl<T>(v[i]);
+        p = p->next;
     }
-    return head;
+    return head.next;
 }
 

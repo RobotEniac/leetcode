@@ -14,11 +14,7 @@
 using namespace std;
 
 int rangeBitwiseAnd(int m, int n) {
-    int ret = m;
-    for (int i = m; i <= n; ++i) {
-        ret = ret & i;
-    }
-    return ret;
+    return n > m ? (rangeBitwiseAnd((m>>1), (n>>1)) << 1) : m;
 }
 
 int main(int argc, char *argv[]) {
