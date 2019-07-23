@@ -49,18 +49,49 @@ public:
         if (word.empty()) {
             return;
         }
+        TrieNode *p = root;
         for (int i = 0; i < word.size(); ++i) {
+            int index = word[i] - 'a';
+            if (p->child[index] == NULL) {
+                p->child[index] = new TrieNode;
+            }
+            p = p->child[index];
         }
+        p->is_leaf = true;
     }
 
     /** Returns if the word is in the trie. */
     bool search(string word) {
-
+        if (word.empty()) {
+            return true;
+        }
+        TrieNode *p = root;
+        for (int i = 0; i < word.size(); ++i) {
+            int index = word[i] - 'a';
+            if (p->child[index]) {
+                p = p->child[index];
+            } else {
+                return false;
+            }
+        }
+        return p->is_leaf;
     }
 
     /** Returns if there is any word in the trie that starts with the given prefix. */
     bool startsWith(string prefix) {
-
+        if (prefix.empty()) {
+            return true;
+        }
+        TrieNode *p = root;
+        for (int i = 0; i < prefix.size(); ++i) {
+            int index = prefix[i] - 'a';
+            if (p->child[index]) {
+                p = p->child[index];
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
 private:
@@ -76,5 +107,11 @@ private:
  */
 
 int main(int argc, char *argv[]) {
-    cout << "hello world" << endl;
+    Trie obj;
+    obj.insert("abc");
+    obj.insert("app");
+    obj.insert("helloworld");
+    cout << boolalpha << obj.search("abc") << endl;
+    cout << boolalpha << obj.search("ab") << endl;
+    cout << boolalpha << obj.startsWith("a") << endl;
 }

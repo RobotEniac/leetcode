@@ -56,7 +56,6 @@ bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
     for (int i = 0; i < prerequisites.size(); ++i) {
         g[prerequisites[i].first].push_back(prerequisites[i].second);
     }
-    print(g);
     list<int> path;
     set<int> traversed;
     for (int i = 0; i < numCourses; ++i) {
