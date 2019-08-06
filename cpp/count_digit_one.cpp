@@ -3,7 +3,7 @@
 //
 // Author: eniac <roboteniac@163.com>
 // Created: 2019/02/23
-// Description: 
+// Description: count digit one
 
 #include <iostream>
 #include <vector>
@@ -29,5 +29,38 @@ int countDigitOne(int n) {
         // count += (a + 8) / 10 * i + (a % 10 == 1) * (b + 1)
     }
     return count;
+}
+
+int countDigitThree(int n) {
+    int count = 0;
+    for (int64_t i = 1; i <= n; i *= 10) {
+        int a = n / i;
+        int b = n % i;
+        if (a % 10 < 3) {
+            if (i == 1) {
+                count += (a / 10) * i;
+            } else {
+                count += (a / 10) * i / 2;
+            }
+        } else if (a % 10 == 3) {
+            if (i == 1) {
+                count += (a / 10) * i;
+            } else {
+                count += ((a / 10) * i + b + 1 + 1) / 2;
+            }
+        } else {
+            if (i == 1) {
+                count += (a / 10 + 1) * i;
+            } else {
+                count += (a / 10 + 1) * i / 2;
+            }
+        }
+    }
+    return count;
+}
+
+int main(int argc, char *argv[]) {
+    int n = 866278171;
+    cout << countDigitThree(n) << endl;
 }
 
