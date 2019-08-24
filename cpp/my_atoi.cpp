@@ -62,7 +62,69 @@ int myAtoi(const std::string& str) {
     return 0;
 }
 
+int myAtoi2(const std::string& str) {
+    if (str.empty()) {
+        return 0;
+    }
+    enum Status {
+        START,
+        SIGN_PARSED,
+        NUM
+    };
+
+    Status st = START;
+    int64_t sign = 1;
+    int64_t res = 0;
+    for (int i = 0; i < str.size(); ++i) {
+        if (str[i] == ' ' || str[i] == '\t') {
+            if (st == START) {
+                continue;
+            } else if (st == SIGN_PARSED) {
+                return 0;
+            } else if (st == NUM) {
+                break;
+            }
+        }
+        if (str[i] == '-') {
+            if (st == START) {
+                sign = -1;
+                st = SIGN_PARSED;
+            } else {
+                break;
+            }
+        } else if (str[i] == '+') {
+            if (st == START) {
+                sign = 1;
+                st = SIGN_PARSED;
+            } else {
+                break;
+            }
+        } else if (str[i] >= '0' && str[i] <= '9') {
+            if (st == START) {
+                sign = 1;
+                res = str[i] - '0';
+                st = NUM;
+            } else if (st == SIGN_PARSED) {
+                res = str[i] - '0';
+                st = NUM;
+            } else if (st == NUM) {
+                res = res * 10 + (str[i] - '0');
+                int64_t t = res * sign;
+                if (t >= INT_MAX) {
+                    return INT_MAX;
+                }
+                if (t <= INT_MIN) {
+                    return INT_MIN;
+                }
+            }
+        } else {
+            break;
+        }
+    }
+    return (int)(sign * res);
+}
+
 int main(int argc, char *argv[]) {
-    std::cout << myAtoi(argv[1]) << std::endl;
+    std::cout << myAtoi2(argv[1]) << std::endl;
 }
 
