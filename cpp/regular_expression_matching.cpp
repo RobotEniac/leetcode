@@ -16,40 +16,26 @@
 using namespace std;
 
 bool match(const char *s, const char *p) {
-    cout << string(s) << "\n" << string(p) << endl;
-    // sleep(1);
-    while (*s && *p) {
-        if (*s == *p) {
-            ++s;
-            ++p;
-        } else if (*p == '?') {
+    const char *ps = NULL;
+    const char *ss = s;
+    while (*s) {
+        if (*s == *p || *p == '?') {
             ++s;
             ++p;
         } else if (*p == '*') {
-            while (*p == '*') ++p;
-            if (*p == 0) {
-                return true;
-            }
-            while (*s != 0) {
-                if (match(s++, p)) {
-                    return true;
-                }
-            }
-            return false;
+            ss = s;
+            ps = p++;
+        } else if (ps != NULL) {
+            s = ss++;
+            p = ps+1;
         } else {
             return false;
         }
     }
-    if (*s == 0 && *p == 0) {
-        return true;
+    while (*p && *p == '*') {
+        ++p;
     }
-    if (*s == 0) {
-        while (*p && *p == '*') {
-            ++p;
-        }
-        return *p == 0;
-    }
-    return false;
+    return *p == 0;
 }
 
 bool isMatch(string s, string p) {
@@ -57,8 +43,10 @@ bool isMatch(string s, string p) {
 }
 
 int main(int argc, char *argv[]) {
-    string s = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
-    string p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
+    // string s = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
+    // string p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
+    string s(argv[1]);
+    string p(argv[2]);
     cout << s << "\n" << p << endl;
     cout << boolalpha << isMatch(s, p) << endl;
 }
