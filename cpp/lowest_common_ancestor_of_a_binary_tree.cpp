@@ -19,58 +19,77 @@ void show(list<TreeNode*> &l) {
     cout << "[";
     for (auto it = l.begin(); it != l.end(); ++it) {
         if (it != l.begin()) {
-            cout << ", ";
+            cout << "->";
         }
         cout << (*it)->val;
     }
     cout << "]\n";
 }
 
-bool findNode(TreeNode *root, TreeNode *p, list<TreeNode*> *path) {
-    if (root == NULL && p != NULL) {
-        return false;
+TreeNode* findNodeVal(TreeNode *root, int val, list<TreeNode*> *path) {
+    if (root == NULL) {
+        return NULL;
     }
     path->push_back(root);
-    if (root == p) {
-        return true;
+    if (root->val == val) {
+        return root;
     }
-    if (findNode(root->left, p, path)) {
-        return true;
+    TreeNode* p = findNodeVal(root->left, val, path);
+    if (p) {
+        return p;
     }
-    if (findNode(root->right, p, path)) {
-    }   return true;
+    p = findNodeVal(root->right, val, path);
+    if (p) {
+        return p;
+    }
     path->pop_back();
-    return false;
+    return NULL;
+}
+
+bool findNode(TreeNode *root, TreeNode *p, TreeNode *q, TreeNode *&res) {
+    if (root == NULL) {
+        return false;
+    }
+    int left = 0;
+    int right = 0;
+    int mid = 0;
+    if (p == root || q == root) {
+        mid = 1;
+    }
+    if (findNode(root->left, p, q, res)) {
+        left = 1;
+    }
+    if (findNode(root->right, p, q, res)) {
+        right = 1;
+    }
+    if (left + right + mid >= 2) {
+        res = root;
+        return true;
+    }
+    return left + right + mid > 0;
 }
 
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    list<TreeNode*> plist;
-    list<TreeNode*> qlist;
-    if (findNode(root, p, &plist) && findNode(root, q, &qlist)) {
-        show(plist);
-        show(qlist);
-        auto pit = plist.begin();
-        auto qit = qlist.begin();
-        while (pit != plist.end() && qit != qlist.end()) {
-            if (*pit != *qit) {
-                --pit;
-                return *pit;
-            }
-            ++pit;
-            ++qit;
-        }
-    }
-    return NULL;
+    TreeNode *res = NULL;
+    findNode(root, p, q, res);
+    return res;
 }
 
 int main(int argc, char *argv[]) {
     vector<int> nums = {3,5,1,6,2,0,8,null,null,7,4};
     TreeNode *root = MakeTree(nums);
     PrintTreeNode(root, 0);
-    TreeNode *p = lowestCommonAncestor(root, root->left, root->right);
-    if (p == NULL) {
+    list<TreeNode*> path;
+    TreeNode *p1 = findNodeVal(root, 5, &path);
+    show(path);
+    path.clear();
+    TreeNode* p2 = findNodeVal(root, 4, &path);
+    show(path);
+
+    TreeNode *res = lowestCommonAncestor(root, p1, p2);
+    if (res == NULL) {
         cout << "NULL" << endl;
         return 1;
     }
-    cout << p->val << endl;
+    cout << res->val << endl;
 }
