@@ -99,7 +99,7 @@ void BTree::Print() {
     PrintTreeNode(GetRoot(), 0);
 }
 
-TreeNode* MakeTree(vector<int> ary) {
+TreeNode* MakeTree(const vector<int> &ary) {
     if (ary.size() == 0) {
         return NULL;
     }
