@@ -1,13 +1,17 @@
-// =====================================================
-//       Filename:  my_atoi.cpp
-//         Author:  roboteniac <>
-//        Created:  2017/05/03
-//    Description:  
-//    Copyright (c) 2017, roboteniac, All rights reserved. 
-// =====================================================
+// Copyright (c) 2019, eniac
+// All rights reserved.
+//
+// Author: eniac <roboteniac@163.com>
+// Created: 2020/05/22 14:17:52
+// Description: https://leetcode.com/problems/string-to-integer-atoi/
 
-#include <string>
 #include <iostream>
+#include <vector>
+#include <string>
+
+#include "util.h"
+
+using namespace std;
 
 int myAtoi(const std::string& str) {
     if (str.empty()) {
@@ -124,7 +128,35 @@ int myAtoi2(const std::string& str) {
     return (int)(sign * res);
 }
 
+int myAtoi3(const std::string &s) {
+    bool begin = false;
+    int64_t sign = 1;
+    int64_t ret = 0;
+    for (int i = 0;  i < s.size(); ++i) {
+        if (!begin && (s[i] == ' ' || s[i] == '\t')) {
+            // do nothing
+        } else if (!begin && (s[i] == '-' || s[i] == '+')) {
+            sign = -(int64_t)(s[i] == '-');
+            begin = true;
+        } else if (!begin && s[i] >= '0' && s[i] <= '9') {
+            ret = s[i] - '0';
+            begin = true;
+        } else if (begin && s[i] >= '0' && s[i] <= '9') {
+            ret = ret * 10 + (s[i] - '0');
+            int64_t t = sign * ret;
+            if (t >= INT_MAX) {
+                return INT_MAX;
+            } else if (t <= INT_MIN) {
+                return INT_MIN;
+            }
+        } else {
+            break;
+        }
+    }
+    return (int) sign * ret;
+}
+
 int main(int argc, char *argv[]) {
-    std::cout << myAtoi2(argv[1]) << std::endl;
+    std::cout << myAtoi3(argv[1]) << std::endl;
 }
 

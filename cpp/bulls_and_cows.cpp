@@ -37,6 +37,7 @@ string getHint(string secret, string guess) {
             if (guess[j] == secret[i]) {
                 guess[j] = 'a';
                 ++b;
+                break;
             }
         }
     }
