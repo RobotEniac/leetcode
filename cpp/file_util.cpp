@@ -34,6 +34,7 @@ std::vector<std::string> SplitString(const std::string &str, const std::string &
         string tmp;
         if (pos == string::npos) {
             tmp = str.substr(start);
+            ret.push_back(tmp);
             break;
         } else {
             tmp = str.substr(start, pos - start);
@@ -44,16 +45,17 @@ std::vector<std::string> SplitString(const std::string &str, const std::string &
     return ret;
 }
 
-std::string StringTrim(const std::string &str) {
+std::string StringTrim(const std::string &str,
+                       const std::string& pattern) {
     using namespace std;
-    size_t s = str.find_first_not_of("\t\n ");
-    size_t e = str.find_last_not_of("\t\n ");
+    size_t s = str.find_first_not_of(pattern);
+    size_t e = str.find_last_not_of(pattern);
     if (s == string::npos && e == string::npos) {
         return str;
     } else if (e == string::npos) {
         return str.substr(s);
     } else {
-        return str.substr(s, e+1);
+        return str.substr(s, e-s+1);
     }
 }
 

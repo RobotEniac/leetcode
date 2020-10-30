@@ -3,7 +3,7 @@
 //
 // Author: eniac <roboteniac@163.com>
 // Created: 2020/02/29 23:59:53
-// Description: https://leetcode.com/problems/word-pattern/
+// Description: https://leetcode-cn.com/problems/word-pattern/
 
 #include <iostream>
 #include <vector>
