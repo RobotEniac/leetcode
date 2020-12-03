@@ -15,45 +15,36 @@
 
 using namespace std;
 
-bool match(const char *s, const char *p, int space) {
-    // sleep(1);
-    // cout << string(space, ' ') << "============================================================\n";
-    while (*s && *p) {
-        // cout << string(space, ' ') << string(s) << "\n";
-        // cout << string(space, ' ') << string(p) << "\n";
-        cout << string(s) << "\n";
-        cout << string(p) << "\n";
-        if (*s == *p) {
-            ++s;
-            ++p;
-        } else if (*p == '?') {
+bool match2(const char *s, const char *p) {
+    if (*p == 0)
+        return *s == 0;
+    if (*(p+1) != '*') {
+        return *s != 0 && (*s == *p || *p == '.') && match2(s+1, p+1);
+    }
+    return match2(s, p+2) || (*s != 0 && (*s == *p || *p == '.') && match2(s+1, p));
+}
+
+bool match(const char *s, const char *p) {
+    const char *ps = NULL;
+    const char *ss = s;
+    while (*s) {
+        if (*s == *p || *p == '?') {
             ++s;
             ++p;
         } else if (*p == '*') {
-            while (*p == '*') ++p;
-            if (*p == 0) {
-                return true;
-            }
-            while (*s != 0) {
-                if (match(s++, p, space+1)) {
-                    return true;
-                }
-            }
-            return false;
+            ss = s;
+            ps = p++;
+        } else if (ps != NULL) {
+            s = ss++;
+            p = ps+1;
         } else {
             return false;
         }
     }
-    if (*s == 0 && *p == 0) {
-        return true;
+    while (*p && *p == '*') {
+        ++p;
     }
-    if (*s == 0) {
-        while (*p && *p == '*') {
-            ++p;
-        }
-        return *p == 0;
-    }
-    return false;
+    return *p == 0;
 }
 
 bool match2(const char *s, const char *p) {
@@ -93,6 +84,10 @@ int main(int argc, char *argv[]) {
     // string p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
     string s = argv[1];
     string p = argv[2];
+    string s1 = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
+    string p1 = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
+    string s(argv[1]);
+    string p(argv[2]);
     cout << s << "\n" << p << endl;
     cout << boolalpha << isMatch2(s, p) << endl;
 }

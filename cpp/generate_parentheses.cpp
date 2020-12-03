@@ -27,7 +27,7 @@ void gen(vector<string> &res, const std::string s, int left, int right) {
 vector<string> generateParenthesis(int n) {
     vector<string> ret;
     gen(ret, "", n, n);
-    return vector<string>(ret.begin(), ret.end());
+    return ret;
 }
 
 int main(int argc, char *argv[]) {

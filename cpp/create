@@ -4,6 +4,11 @@
 url=$1
 name=`echo $url | awk -F'\/' '{print $5}' | sed 's/\-/_/g'`.cpp
 echo $name
+if [ -e $name ];
+then
+    echo "$name is already exists"
+    exit 0
+fi
 
 year=`date +"%Y"`
 time=`date +"%Y/%m/%d %H:%M:%S"`

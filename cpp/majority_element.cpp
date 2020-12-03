@@ -14,19 +14,16 @@ using namespace std;
 
 int majorityElement(vector<int>& nums) {
     int maj = 0;
-    int count = 1;
+    int count = 0;
     for (int i = 1; i < nums.size(); ++i) {
-        if (nums[i] == nums[maj]) {
+        if (count == 0) {
+            maj = nums[i];
+        } else if (nums[i] == nums[maj]) {
             ++count;
         } else {
             --count;
         }
-        if (count == 0) {
-            maj = i;
-            count = 1;
-        }
     }
-
     count = 0;
     for (int i = 0; i < nums.size(); ++i) {
         if (nums[i] == nums[maj]) {
@@ -37,5 +34,9 @@ int majorityElement(vector<int>& nums) {
         return nums[maj];
     }
     return 0;
+}
+
+int main(int argc, char *argv[]) {
+    cout << "hello world\n";
 }
 

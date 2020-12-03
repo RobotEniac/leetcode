@@ -8,6 +8,10 @@
 #include <stdio.h>
 
 #include <iostream>
+#include <deque>
+#include <vector>
+
+#define null 0x0f0f0f0f
 
 using namespace std;
 
@@ -79,20 +83,39 @@ void Space(int n) {
 
 void PrintTreeNode(TreeNode *node, int height) {
     if (node == NULL) {
-        Space(height);
-        printf("(null)\n");
         return;
+    }
+    if (node->left) {
+        PrintTreeNode(node->left, height + 1);
     }
     Space(height);
     printf("%d\n", node->val);
-    if (node->left == NULL && node->right == NULL) {
-        return;
+    if (node->right) {
+        PrintTreeNode(node->right, height + 1);
     }
-    PrintTreeNode(node->left, height + 1);
-    PrintTreeNode(node->right, height + 1);
 }
 
 void BTree::Print() {
     PrintTreeNode(GetRoot(), 0);
+}
+
+TreeNode* MakeTree(const vector<int> &ary) {
+    if (ary.size() == 0) {
+        return NULL;
+    }
+    TreeNode *root = new TreeNode(ary[0]);
+    deque<TreeNode**> q;
+    q.push_back(&root->left);
+    q.push_back(&root->right);
+    for (int i = 1; i < ary.size(); ++i) {
+        TreeNode **p = q.front();
+        q.pop_front();
+        if (ary[i] != null) {
+            *p = new TreeNode(ary[i]);
+            q.push_back(&((*p)->left));
+            q.push_back(&((*p)->right));
+        }
+    }
+    return root;
 }
 
