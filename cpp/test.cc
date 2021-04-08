@@ -1,15 +1,17 @@
+// Copyright (c) 2021, Personal Developer
+// All rights reserved.
+//
+// Author: RobotEniac <gethaibo@gmail.com>
+// Created: 04/02/21
+// Description:
+
 #include <iostream>
-#include <vector>
-#include <deque>
-
-#include "string.hpp"
-
+#include <string>
 using namespace std;
-
-#define null 0x0f0f0f0f
-
-int main(int ac, char *av[]) {
-    string s(av[1]);
-    cout << StringToInt(s) << endl;
+int main(int argc, char *argv[]) {
+    string s("abc");
+    size_t pos1 = s.find('a');
+    size_t pos2 = s.find('d');
+    cout << pos1 << ", " << pos2 << "\n";
 }
 

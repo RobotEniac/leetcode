@@ -3,7 +3,7 @@
 //         Author:  wuhaibo <gethaibo@gmail.com>
 //        Created:  2016/03/26
 //    Description:  list node template
-//    Copyright (c) 2016, NONE, All rights reserved. 
+//    Copyright (c) 2016, NONE, All rights reserved.
 // =====================================================
 #include <sstream>
 #include <vector>
@@ -60,5 +60,33 @@ ListNodeTpl<T>* MakeList(std::vector<T> &v) {
         p = p->next;
     }
     return head.next;
+}
+
+template<typename T>
+ListNodeTpl<T> **findIndirect(ListNodeTpl<T> *head, T val) {
+    ListNodeTpl<T> **p = &head;
+    while ((*p) != NULL && (*p)->val != T) {
+        p = &(*p)->next;
+    }
+    return p;
+}
+
+template<typename T>
+ListNodeTpl<T> *FindNode(ListNodeTpl<T> *head, T val) {
+    ListNodeTpl<T> **p = findIndirect(head, val);
+    return *p;
+}
+
+template<typename T>
+ListNodeTpl<T> InsertNode(ListNodeTpl<T> *head, T before, ListNodeTpl<T> *insert) {
+    ListNodeTpl<T> **p = findIndirect(head, before);
+    insert->next = (*p)->next;
+    *p = node;
+}
+
+template<typename T>
+ListNodeTpl<T> RemoveNode(ListNodeTpl<T> *head, T remove) {
+    ListNodeTpl<T> **p = findIndirect(head, remove);
+    *p = (*p)->next;
 }
 
