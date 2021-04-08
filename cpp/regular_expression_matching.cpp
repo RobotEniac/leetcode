@@ -47,15 +47,47 @@ bool match(const char *s, const char *p) {
     return *p == 0;
 }
 
+bool match2(const char *s, const char *p) {
+    const char *ss = s;
+    const char *ps = NULL;
+    while (*s && *p) {
+        cout << string(s) << "\n" << string(p) << "\n";
+        if (*s == *p || *p == '?') {
+            ++s;
+            ++p;
+        } else if (*p == '*') {
+            ps = ++p;
+            ss = s;
+        } else if (ps != NULL) {
+            s = ss++;
+            p = ps;
+        } else {
+            return false;
+        }
+    }
+    while (*p == '*') {
+        ++p;
+    }
+    return *p == 0;
+}
+
 bool isMatch(string s, string p) {
+    return match(s.c_str(), p.c_str(), 0);
+}
+
+bool isMatch2(string s, string p) {
     return match2(s.c_str(), p.c_str());
 }
 
 int main(int argc, char *argv[]) {
+    // string s = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
+    // string p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
+    string s = argv[1];
+    string p = argv[2];
     string s1 = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
     string p1 = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
     string s(argv[1]);
     string p(argv[2]);
     cout << s << "\n" << p << endl;
-    cout << boolalpha << isMatch(s, p) << endl;
+    cout << boolalpha << isMatch2(s, p) << endl;
 }
