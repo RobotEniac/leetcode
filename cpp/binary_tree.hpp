@@ -3,7 +3,7 @@
 //
 // Author: eniac <roboteniac@163.com>
 // Created: 2019/02/27
-// Description: 
+// Description:
 
 #include <stdio.h>
 
@@ -77,7 +77,7 @@ void BTree::Insert(int val) {
 
 void Space(int n) {
     for (int i = 0; i < n; ++i) {
-        printf("    ");
+        printf("-");
     }
 }
 
@@ -119,3 +119,6 @@ TreeNode* MakeTree(const vector<int> &ary) {
     return root;
 }
 
+void PrintTree(TreeNode* root) {
+    PrintTreeNode(root, 0);
+}
