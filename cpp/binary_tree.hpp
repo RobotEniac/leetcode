@@ -77,7 +77,7 @@ void BTree::Insert(int val) {
 
 void Space(int n) {
     for (int i = 0; i < n; ++i) {
-        printf("-");
+        printf("    ");
     }
 }
 
