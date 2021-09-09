@@ -20,6 +20,28 @@ vector<vector<int>> dir = {
     {1, 0}
 };
 
+bool is_first = true;
+
+void show(vector<vector<int>> &g) {
+    for (int i = 0; i < g.size(); ++i) {
+        for (int j = 0; j < g[i].size(); ++j) {
+            printf("%4d", g[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+bool is_all_accessed(vector<vector<int>> &g) {
+    for (int i = 0; i < g.size(); ++i) {
+        for (int j = 0; j < g[i].size(); ++j) {
+            if (g[i][j] == 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void dfs(vector<vector<int>>& grid, int i, int j, int& count) {
     if (i < 0 || i >= grid.size()) {
         return;
@@ -27,11 +49,15 @@ void dfs(vector<vector<int>>& grid, int i, int j, int& count) {
     if (j < 0 || j >= grid[i].size()) {
         return;
     }
-    if (grid[i][j] == -1 || grid[i][j] == 3 || grid[i][j] == 1) {
-        return;
-    }
+    show(grid);
+    cout << "==========\n";
     if (grid[i][j] == 2) {
-        ++count;
+        if (is_all_accessed(grid)) {
+            ++count;
+        }
+    }
+    if (grid[i][j] != 0) {
+        return;
     }
     grid[i][j] = 3;
     for (int k = 0; k < dir.size(); ++k) {
@@ -41,15 +67,30 @@ void dfs(vector<vector<int>>& grid, int i, int j, int& count) {
 }
 
 int uniquePathsIII(vector<vector<int>>& grid) {
-    int si = 0;
-    int sj = 0;
+    int si = -1;
+    int sj = -1;
     for (int i = 0; i < grid.size(); ++i) {
         for (int j = 0; j < grid[i].size(); ++j) {
-            if (grid[i][j])
+            if (grid[i][j] == 1) {
+                si = i;
+                sj = j;
+                break;
+            }
+        }
+        if (si > 0) {
+            break;
         }
     }
+    int count = 0;
+    grid[si][sj] = 0;
+    dfs(grid, si, sj, count);
+    grid[si][sj] = 1;
+    return count;
 }
 
 int main(int argc, char *argv[]) {
-    cout << "hello world" << endl;
+    vector<vector<int>> grid = {
+        {1,0,0,0},{0,0,0,0},{0,0,2,-1}
+    };
+    cout << uniquePathsIII(grid) << endl;
 }
