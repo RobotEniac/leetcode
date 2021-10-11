@@ -65,7 +65,7 @@ ListNodeTpl<T>* MakeList(std::vector<T> &v) {
 template<typename T>
 ListNodeTpl<T> **findIndirect(ListNodeTpl<T> *head, T val) {
     ListNodeTpl<T> **p = &head;
-    while ((*p) != NULL && (*p)->val != T) {
+    while ((*p) != NULL && (*p)->val != val) {
         p = &(*p)->next;
     }
     return p;
@@ -81,7 +81,7 @@ template<typename T>
 ListNodeTpl<T> InsertNode(ListNodeTpl<T> *head, T before, ListNodeTpl<T> *insert) {
     ListNodeTpl<T> **p = findIndirect(head, before);
     insert->next = (*p)->next;
-    *p = node;
+    *p = insert;
 }
 
 template<typename T>
