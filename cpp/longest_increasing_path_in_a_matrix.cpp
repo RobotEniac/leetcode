@@ -44,7 +44,7 @@ void dfs(vector<vector<int>> &matrix,
         if (depth + 1 > longest) {
             longest = depth + 1;
         }
-        dfs(matrix, board, x, y, depth + 1, longest);
+        dfs(matrix, board, x, y, depth + 1, longest, path);
         board[x][y] = 0;
     }
 }
@@ -60,7 +60,7 @@ int longestIncreasingPath(vector<vector<int>>& matrix) {
         for (int j = 0; j < matrix[i].size(); ++j) {
             board[i][j] = 1;
             path.push_back(matrix[i][j]);
-            dfs(matrix, board, i, j, 1, longest);
+            dfs(matrix, board, i, j, 1, longest, path);
             path.pop_back();
             board[i][j] = 0;
         }

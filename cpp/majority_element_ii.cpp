@@ -14,8 +14,15 @@
 using namespace std;
 
 vector<int> majorityElement(vector<int>& nums) {
-    if (nums.size() < 3) {
+    if (nums.size() < 2) {
         return nums;
+    }
+    if (nums.size() == 2) {
+        if (nums[0] == nums[1]) {
+            return vector<int>(1, nums[0]);
+        } else {
+            return nums;
+        }
     }
     vector<int> ret;
     int c1 = 0;
