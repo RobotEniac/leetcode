@@ -2,8 +2,8 @@
 //       Filename:  revers_list_nodes.cpp
 //         Author:  wuhaibo <gethaibo@gmail.com>
 //        Created:  2017/02/17
-//    Description:  
-//    Copyright (c) 2017, NONE, All rights reserved. 
+//    Description:
+//    Copyright (c) 2017, NONE, All rights reserved.
 // =====================================================
 
 #include "list_node_tpl.h"
@@ -30,6 +30,17 @@ ListNode* reverse(ListNode *begin, ListNode* end) {
         curr = tmp;
     }
     return dummy.next;
+}
+
+ListNode *reversek(ListNode *root, int k) {
+    ListNode dummy(0);
+    dummy.next = root;
+    ListNode *ch = root;
+    ListNode *p = root;
+    int i = 0;
+    while (p != NULL) {
+        if (
+    }
 }
 
 int main(int argc, char* argv[]) {
