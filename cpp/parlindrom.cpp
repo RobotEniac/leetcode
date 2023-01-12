@@ -2,8 +2,8 @@
 //       Filename:  parlindrom.cpp
 //         Author:  wuhaibo <gethaibo@gmail.com>
 //        Created:  2016/04/02
-//    Description:  
-//    Copyright (c) 2016, NONE, All rights reserved. 
+//    Description:
+//    Copyright (c) 2016, NONE, All rights reserved.
 // =====================================================
 
 #include <iostream>
@@ -31,8 +31,7 @@ std::string parlindrome(const std::string& str) {
     int max_len = 1;
     int ms = 0;
     int me = 1;
-    int len = 2;
-    for (; len <= str.size(); ++len) {
+    for (int len = 2; len <= str.size(); ++len) {
         for (int i = 0; i < str_len - 1; ++i) {
             if (memo[i+1][i+len-1] && str[i] == str[i+len-1]) {
                 memo[i][i+len] = true;

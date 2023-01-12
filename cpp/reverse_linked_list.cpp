@@ -27,8 +27,23 @@ ListNode* reverseList(ListNode* head) {
     return gd.next;
 }
 
+ListNode *reverse(ListNode *root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    ListNode a;
+    ListNode *p = root;
+    while (p != NULL) {
+        ListNode *tmp = p->next;
+        p->next = a.next;
+        a.next = p;
+        p = tmp;
+    }
+    return a.next;
+}
+
 int main(int argc, char *argv[]) {
     ListNode *p = MakeList(10, true);
     cout << p << endl;
-    cout << reverseList(p) << endl;
+    cout << reverse(p) << endl;
 }

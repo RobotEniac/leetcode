@@ -90,7 +90,7 @@ int E_sub(int first, const char *&p) {
         }
         if (*p == '+' || *p == '-') {
             return E_sub(first+second, p);
-        } 
+        }
         if (*p == '*' || *p == '/') {
             second = T_sub(second, p);
             return E_sub(first + second, p);
@@ -106,7 +106,7 @@ int E_sub(int first, const char *&p) {
         }
         if (*p == '+' || *p == '-') {
             return E_sub(first-second, p);
-        } 
+        }
         if (*p == '*' || *p == '/') {
             second = T_sub(second, p);
             return E_sub(first - second, p);
