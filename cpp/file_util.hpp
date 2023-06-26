@@ -1,11 +1,11 @@
-#include "file_util.h"
 #include <stdlib.h>
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
-namespace leetcode {
-
+namespace lc {
 std::string ReadAll(const std::string &fname) {
     using namespace std;
     ifstream f(fname);
@@ -46,7 +46,7 @@ std::vector<std::string> SplitString(const std::string &str, const std::string &
 }
 
 std::string StringTrim(const std::string &str,
-                       const std::string& pattern) {
+                       const std::string& pattern = "\r\n\t ") {
     using namespace std;
     size_t s = str.find_first_not_of(pattern);
     size_t e = str.find_last_not_of(pattern);
@@ -61,7 +61,19 @@ std::string StringTrim(const std::string &str,
 
 int32_t StringToInt32(const std::string &s) {
     using namespace std;
-    string st = StringTrim(s);
+    std::string st = StringTrim(s);
     return atoi(st.c_str());
+}
+
+std::vector<int> ReadArrayInt(const std::string &fname) {
+    std::string content = ReadAll(fname);
+    std::vector<std::string> lines = SplitString(content, "\n");
+    std::vector<std::string> vs = SplitString(lines[0], ",");
+    std::vector<int> ret;
+    for (int i = 0; i < vs.size(); ++i) {
+        std::string t = StringTrim(vs[i], "\n\r\n[]");
+        ret.push_back(StringToInt32(t));
+    }
+    return ret;
 }
 }
