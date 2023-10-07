@@ -32,7 +32,7 @@ string removeDuplicateLetters(string s) {
     for (size_t i = 0; i < s.size(); ++i) {
         int k = s[i] - 'a';
         --m[k];
-        if (visited[k]) 
+        if (visited[k])
             continue;
         while (s[i] < res.back() && m[res.back() - 'a'] > 0) {
             visited[res.back() - 'a'] = 0;
