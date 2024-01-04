@@ -1,0 +1,12 @@
+OpenSSH_9.1p1, OpenSSL 1.1.1s  1 Nov 2022
+debug1: Reading configuration data /Users/haibo/.ssh/config
+debug1: /Users/haibo/.ssh/config line 1: Applying options for *
+debug1: Reading configuration data /usr/local/etc/ssh/ssh_config
+debug2: resolve_canonicalize: hostname 10.10.3.55 is address
+debug3: expanded UserKnownHostsFile '~/.ssh/known_hosts' -> '/Users/haibo/.ssh/known_hosts'
+debug3: expanded UserKnownHostsFile '~/.ssh/known_hosts2' -> '/Users/haibo/.ssh/known_hosts2'
+debug1: auto-mux: Trying existing master
+debug1: Control socket "/Users/haibo/.ssh/master-mounto@10.10.3.55:22" does not exist
+debug3: ssh_connect_direct: entering
+debug1: Connecting to 10.10.3.55 [10.10.3.55] port 22.
+debug3: set_sock_tos: set socket 3 IP_TOS 0x48

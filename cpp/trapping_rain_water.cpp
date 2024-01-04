@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stack>
 
 #include "util.h"
 
@@ -43,7 +44,38 @@ int trap(vector<int>& height) {
     return total;
 }
 
+int trap2(vector<int>& height) {
+    int total = 0;
+    stack<int> s;
+    for (int i = 0; i < height.size(); ++i) {
+        if (s.empty()) {
+            s.push(i);
+            continue;
+        }
+        if (height[i] <= height[s.top()]) {
+            s.push(i);
+        } else {
+            int h = 0;
+            while (!s.empty() && height[i] > height[s.top()]) {
+                int t = s.top();
+                s.pop();
+                int hh = min(height[i], height[t]);
+                total += (i - t - 1) * (hh - h);
+                h = height[t];
+            }
+            if (!s.empty()) {
+                int hh = min(height[i], height[s.top()]);
+                total += (i - s.top() - 1) * (hh - h);
+            }
+            s.push(i);
+        }
+    }
+    return total;
+}
+
 int main(int argc, char *argv[]) {
-    vector<int> h = {0,1,0,2,1,0,1,3,2,1,2,1};
+    // vector<int> h = {0,1,0,2,1,0,1,3,2,1,2,1};
+    vector<int> h = {4,2,0,3,2,5};
     cout << trap(h) << endl;
+    cout << trap2(h) << endl;
 }
