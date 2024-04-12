@@ -76,4 +76,24 @@ std::vector<int> ReadArrayInt(const std::string &fname) {
     }
     return ret;
 }
+
+std::vector<std::vector<int> > ReadRange(const std::string &fname) {
+    std::string content = ReadAll(fname);
+    std::vector<std::string> lines = SplitString(content, "\n");
+    std::vector<std::string> vs = SplitString(lines[0], "]");
+    std::vector<std::vector<int> > ret;
+    for (int i = 0; i < vs.size(); ++i) {
+        std::string t = StringTrim(vs[i], "\n\r\n[],");
+        if (!t.empty()) {
+            std::vector<std::string> vvs = SplitString(t, ",");
+            if (vvs.size() == 2) {
+                std::vector<int> a(2, 0);
+                a[0] = StringToInt32(vvs[0]);
+                a[1] = StringToInt32(vvs[1]);
+                ret.push_back(a);
+            }
+        }
+    }
+    return ret;
+}
 }
