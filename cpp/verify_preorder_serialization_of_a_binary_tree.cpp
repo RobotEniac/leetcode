@@ -79,6 +79,6 @@ bool isValidSerialization(string preorder) {
 
 int main(int argc, char *argv[]) {
     // std::string s = "9,3,4,#,#,1,#,#,2,#,6,#,#";
-    std::string s = "1,#";
+    std::string s = "9,#,#,1";
     cout << boolalpha << isValidSerialization(s) << endl;
 }

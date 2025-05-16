@@ -4,6 +4,7 @@
 // Author: eniac <roboteniac@163.com>
 // Created: 2019/03/25 17:22:10
 // Description: https://leetcode.com/problems/add-and-search-word-data-structure-design/
+// 字典树，没啥好看的
 
 #include <iostream>
 #include <vector>

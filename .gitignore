@@ -31,4 +31,6 @@
 *.out
 *.app
 
-.ccls-cache/
+.ccls-cache/**
+.vscode/
+.git/

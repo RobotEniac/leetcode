@@ -2,9 +2,10 @@
 //       Filename:  add_two_numbers.cpp
 //         Author:  wuhaibo <gethaibo@gmail.com>
 //        Created:  2016/03/26
-//    Description:  
-//    Copyright (c) 2016, NONE, All rights reserved. 
+//    Description:
+//    Copyright (c) 2016, NONE, All rights reserved.
 // =====================================================
+// 大数和，逆序后按位加，注意好进位就行
 
 #include "list_node_tpl.h"
 #include <iostream>

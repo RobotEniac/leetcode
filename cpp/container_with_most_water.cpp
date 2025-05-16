@@ -16,7 +16,17 @@ using namespace std;
 
 int maxArea(vector<int>& height) {
     int l = 0;
-    int r = height.size() - 1;
+
+        if (height[l] <= height[r]) {
+            int a = height[l] * (r - l);
+            if (amax < a) {
+                amax = a;
+            }
+            ++l;
+        } else {
+            int a = height[r] * (r - l);
+            if (amax < a) {
+                amax = a;    int r = height.size() - 1;
     int amax = 0;
     while (l < r) {
         if (height[l] <= height[r]) {

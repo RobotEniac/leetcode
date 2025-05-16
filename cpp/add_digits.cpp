@@ -4,6 +4,7 @@
 // Author: eniac <roboteniac@163.com>
 // Created: 2020/02/17 15:59:19
 // Description: https://leetcode.com/problems/add-digits
+// 把所有10进制位加起来，没啥好看的
 
 #include <iostream>
 #include <vector>

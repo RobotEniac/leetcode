@@ -14,9 +14,20 @@
 using namespace std;
 
 int addMinimum(string word) {
-
+    if (word.empty()) {
+        return 0;
+    }
+    int cnt = 1;
+    for (int i = 1; i < word.size(); ++i) {
+        if (word[i] <= word[i-1]) {
+            ++cnt;
+        }
+    }
+    return cnt * 3 - word.size();
 }
 
 int main(int argc, char *argv[]) {
-    cout << "hello world" << endl;
+    string a = "ababa";
+    cout << a << endl;
+    cout << addMinimum(a) << endl;
 }

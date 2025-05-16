@@ -1,0 +1,15 @@
+#!/bin/sh
+
+name=$1
+shift
+args=$@
+
+die() {
+    echo $@
+    exit 1
+}
+
+alias c11='g++ -g -std=c++11'
+c11 $name -o a.out || die "build failed"
+./a.out $@
+
