@@ -7,7 +7,7 @@
 // =====================================================
 // 大数和，逆序后按位加，注意好进位就行
 
-#include "list_node_tpl.h"
+#include "list_node.hpp"
 #include <iostream>
 
 typedef ListNodeTpl<int> ListNode;
