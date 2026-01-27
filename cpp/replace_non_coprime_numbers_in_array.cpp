@@ -28,55 +28,30 @@ int64_t gcd(int a, int b) {
 
 vector<int> replaceNonCoprimes(vector<int> &nums)
 {
-    int i = 0;
-    int e = nums.size();
-    while (i < e) {
-        if (nums[i] == 1) {
-            ++i;
+    vector<int> r;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (r.empty() || nums[i] == 1) {
+            r.push_back(nums[i]);
             continue;
         }
-        int c = 0;
-        while (i+1+c < e && nums[i] == nums[i+1+c]) {
-            ++c;
-        }
-        if (c == 0) {
-            ++i;
-        }
-        else
-        {
-            for (int j = i + 1; j+c < e; ++j)
-            {
-                nums[j] = nums[j + c];
-            }
-            e -= c;
-        }
-    }
-    i = 0;
-    while (i < e-1) {
-        // cout << i << "~" << e << ":" << nums << endl;
-        int64_t t = gcd(nums[i], nums[i+1]);
-        if (t == 1) {
-            ++i;
-        } else {
-            int64_t n = (int64_t)nums[i] * (int64_t)nums[i+1] / t;
-            nums[i] = n;
-            for (int j = i+1; j < e; ++j) {
-                nums[j] = nums[j+1];
-            }
-            --e;
-            if (i > 0 && gcd(nums[i], nums[i-1]) != 1) {
+        int &a = r[r.size()-1];
+        if (a != nums[i]) {
+            int t = gcd(a, nums[i]);
+            if (t == 1) {
+                r.push_back(nums[i]);
+            } else {
+                nums[i] = a * nums[i] / t;
+                r.pop_back();
                 --i;
             }
         }
     }
-    vector<int> ret(nums.begin(), nums.begin() + e);
-    return ret;
+    return r;
 }
 
 int main(int argc, char *argv[]) {
     // vector<int> v = {287,41,49,287,899,23,23,20677,5,825};
-    vector<int> v = {2,2,1,1,3,3,3};
-    cout << v << endl;
+    vector<int> v = {10,21,11,33,14,5};
     vector<int> r = replaceNonCoprimes(v);
     cout << v << endl;
     cout << r << endl;
